@@ -1,0 +1,31 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	int a[10][10],k;
+	while (cin >> k)
+	{
+		for (int i = 0; i < k; i++)
+		{
+			for (int j = 0; j <= i; j++)
+			{
+				if (i == 0 || j == 0 || i == j)
+					a[i][j] = 1;
+				else
+					a[i][j] = a[i - 1][j] + a[i - 1][j - 1];
+			}
+		}
+		for (int m = 0; m < k; m++)
+		{
+			for (int n = 0; n <= m; n++)
+			{
+				cout << a[m][n] << ' ';
+			}
+			cout << endl;
+		}
+	}
+	if (k > 10)
+	{
+		cout << "error";
+	}
+}
