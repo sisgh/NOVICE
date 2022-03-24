@@ -1,0 +1,38 @@
+#include<iostream>
+using namespace std;
+struct plist
+{
+	int num;
+	plist *next;
+};
+void creat(plist *phead,int n)
+{
+	plist *p = phead;
+	for (int i = 1; i <= n; i++)
+	{
+		plist *pc = new plist;
+		cin>>pc->num;
+		pc->next = NULL;
+		p->next = pc;
+		p = pc;
+	}
+}
+void print(plist *pout)
+{
+	plist *q = pout;
+	for (; q != NULL;)
+	{
+		cout << q->num << endl;
+		q = q->next;
+	}
+}
+int main()
+{
+	int n;
+	cin >> n;
+	plist *head = new plist;
+	head->num = 0;
+	head->next = NULL;
+	creat(head, n);
+	print(head);
+}
