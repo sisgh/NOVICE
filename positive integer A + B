@@ -1,0 +1,71 @@
+#include<iostream>
+#include<string>
+
+using namespace std;
+int check(const string& c)//Judge whether there are other character in the string
+{
+	for (int i(0); c[i] != '\0'; i++)
+	{
+		if (c[i]<'0' || c[i]>'9')
+			return 0;
+		else if (c[0] == '0')
+			return 0;
+		else if(c[i+1]=='\0')
+			return 1;
+	}
+}
+int& change(const string& s, int &i) //change char type to int
+{                                    //such as change "123" to 123 
+	int k(1);
+	if (check(s))
+	{
+		for (int j(0); s[j] != '\0'; j++)
+		{
+			i += ((s[s.size() - 1 - j] - 48)*k);
+			k *= 10;
+		}
+	}
+	return i;
+}
+void assign(const string& a, string& b, int &i) 
+{
+	if (check(a))
+		change(a, i);
+	else
+		b = "?";
+}
+int main()
+{
+	string a("0"), b("0"),c("0"),d("0");
+	int n(0), m(0);
+	cin >> a;
+	cin.ignore();
+	getline(cin, b);
+	assign(a, c, n);
+	assign(b, d, m);
+	if (c == "?" && d == "?")
+	{
+		cout << c << ' ' << "+" << " " << d << ' ' <<"="<<' '<< "?";
+	}
+	else if (c == "?"&&m != 0)
+	{
+		cout << c << ' ' << "+" << " " << m << ' ' << "=" << ' ' << "?";
+		if(m>1000)
+			cout << c << ' ' << "+" << " " << "?" << ' ' << "=" << ' ' << "?";
+	}
+	else if (d == "?"&&n != 0)
+	{
+		cout << n << ' ' << "+" << " " << d << ' ' << "=" << ' ' << "?";
+		if (n > 1000)
+			cout << "?" << ' ' << "+" << " " << d << ' ' << "=" << ' ' << "?";
+	}
+	else if (n > 1000 && m > 1000)
+	{
+		cout << "?" << ' ' << "+" << " " << "?" << ' ' << "=" << ' ' << "?";
+	}
+	else
+	{
+		cout << n << ' ' << "+" << " " << m << " " << "=" <<" "<< n + m;
+	}
+	return 0;
+}
