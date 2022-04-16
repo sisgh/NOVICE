@@ -1,0 +1,87 @@
+#include<iostream>
+#include<vector>
+#include<string>
+
+using namespace std;
+
+void count(vector<int>::iterator &n, string::iterator&t,string &tel)
+{
+	for (vector<int>::size_type i = 0; i<tel.size(); ++i)
+	{
+		switch (*(t + i)-'0')
+		{
+		case 0:*n=1; break;
+		case 1:*(n + 1)=1; break;
+		case 2:*(n + 2)=1; break;
+		case 3:*(n + 3)=1; break;
+		case 4:*(n + 4)=1; break;
+		case 5:*(n + 5)=1; break;
+		case 6:*(n + 6)=1; break;
+		case 7:*(n + 7)=1; break;
+		case 8:*(n + 8)=1; break;
+		case 9:*(n + 9)=1; break;
+		}
+	}
+}
+
+vector<int>::iterator check( vector<int>::iterator &n1, vector<int>&num1, const string::iterator&t, string &tel, vector<int>::iterator &s)
+{
+	for (int i = 0; i < tel.size(); ++i)
+	{
+		for (vector<int>::size_type j =0 ; n1!=num1.end(); ++j,n1++)
+		{
+			if ((*(t+i) - '0') == *(n1))
+			{
+				*(s + i) = j;
+				break;
+			}
+		}
+		n1 = num1.begin();
+	}
+	return s;
+}
+
+void numb(vector<int>::iterator &n, vector<int>&num, vector<int>::iterator &n1, vector<int>&num1)
+{
+	vector<int>::size_type i = 9;
+	for (; n != num.begin(); --i,--n)
+	{
+		if ((*(n)) > 0)
+		{
+			*n1++ = i;  
+		}
+	}
+	if (*n > 0)*n1 = i;
+}
+
+int main()
+{
+	int i = 0;
+	string tel("0");
+	string::iterator t = tel.begin();
+	cin >> tel;
+	vector<int> num(10,-1),sub(11),num1(10,-1);
+	vector<int>::iterator n=num.begin(),s=sub.begin(),n1=num1.begin();
+	count(n, t, tel);
+	n = num.end()-1;
+    numb(n, num, n1, num1);
+	n1 = num1.begin();
+	cout << "int[] arr = new int[]{";
+	while (*n1 != -1)
+	{
+		cout << *n1;
+		if (*(n1+1) != - 1)cout << ',';
+		else cout << "};" << endl;
+		++n1;
+	}
+	n1 = num1.begin();
+	s=check(n1, num1, t, tel, s);
+	cout << "int[] index = new int []{";
+	for (vector<int>::size_type i = 0; (s + i) != sub.end(); ++i)
+	{
+		cout << *(s + i);
+		if ((s + 1+i) != sub.end())cout << ',';
+		else cout << "};" << endl;
+	}
+	return 0;
+}
